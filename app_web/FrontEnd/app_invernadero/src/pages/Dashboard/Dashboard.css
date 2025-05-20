@@ -1,0 +1,7 @@
+.page_dashboard .row{
+    max-width: 100%;
+}
+
+.contenedor_graficas{
+    gap: 15px 0;
+}

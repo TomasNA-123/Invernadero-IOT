@@ -29,6 +29,11 @@ function CardGrafica({datos_sensor}){
         xAxis: {
             categories: Historico_Keys
         },
+        yAxis: {
+            title: {
+                text: `${Alias_Sensor} (${Unidad})`
+            }
+        },
 
         accessibility: {
             description: 'Este gráfico muestra temperaturas simuladas para accesibilidad.'

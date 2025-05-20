@@ -15,6 +15,7 @@ function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Dashboard</Nav.Link>
+            <Nav.Link href="/parametros">Parametros</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

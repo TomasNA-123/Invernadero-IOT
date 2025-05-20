@@ -1,14 +1,15 @@
-from flask import Flask # type: ignore
+from flask import Flask, request # type: ignore
 import requests
 from datetime import datetime
 import json
 from flask_cors import CORS
+import re
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route("/sensores", methods=['GET'])
-def hello_world():
+def get_datos_sensores():
     output = []
 
     try:
@@ -46,6 +47,52 @@ def hello_world():
 
     return json.dumps(output)
 
+@app.route("/parametros", methods=['GET'])
+def get_parametros_sensores():
+    output = {}
+
+    try:
+        response = requests.get("http://127.0.0.1:5001/parametros")
+
+        output = response.json()
+    except Exception as e:
+        output["error"] = str(e)
+
+    return json.dumps(output)
+
+@app.route("/parametros", methods=['PUT'])
+def update_parmetros_sensores():
+    output = {}
+
+    try:
+        data = request.get_json()    
+        data_parametros = {}
+
+        data_parametros["protocolo"] = data["protocolo_update"]
+
+        valores_minimos = {}
+        valores_maximos = {}
+
+        for key in data.keys():
+            if re.match("^min_", key):
+                valores_minimos[re.sub("^min_", "", key)] = data[key]
+
+            if re.match("^max_", key):
+                valores_maximos[re.sub("^max_", "", key)] = data[key]
+        
+        data_parametros["min"] = valores_minimos
+        data_parametros["max"] = valores_maximos
+
+        json_data_parametros = json.dumps(data_parametros)
+
+        response = requests.put("http://127.0.0.1:5001/parametros", json=json_data_parametros)
+
+        output = response.json()
+        # output["msg"] = "Parametros Actualizados"
+    except Exception as e:
+        output["error"] = str(e)
+
+    return json.dumps(output)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

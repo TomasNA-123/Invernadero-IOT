@@ -1,0 +1,28 @@
+.row{
+    padding: 10px;
+}
+
+.row_general{
+    width: 100%;
+}
+
+.fila_inputs{
+    gap: 5px 0;
+}
+
+.col_inputs{
+    align-content: end;
+}
+
+.switch-xl{
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.switch-xl .form-check-input {
+  width: 3rem;
+  height: 1.5rem;
+  transform: scale(1.0);
+  transform-origin: left center;
+}
